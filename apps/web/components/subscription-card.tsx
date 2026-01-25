@@ -73,13 +73,9 @@ export function SubscriptionCard({ subscription }: SubscriptionCardProps) {
     setIsDeleting(true);
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"}/subscriptions/${subscription.id}`,
-        {
-          method: "DELETE",
-          credentials: "include",
-        },
-      );
+      const response = await fetch(`/api/subscriptions/${subscription.id}`, {
+        method: "DELETE",
+      });
 
       if (!response.ok) {
         throw new Error("Failed to delete subscription");

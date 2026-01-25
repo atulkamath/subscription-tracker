@@ -17,12 +17,7 @@ import { toast } from "sonner";
 export function DownloadReminderButton() {
   const handleDownload = async (daysBefore: number) => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"}/subscriptions/calendar?remind=${daysBefore}`,
-        {
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`/api/calendar?remind=${daysBefore}`);
 
       if (!response.ok) {
         throw new Error("Failed to download calendar");
