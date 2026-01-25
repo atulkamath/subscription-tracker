@@ -3,16 +3,20 @@ import { cookies } from "next/headers";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 if (!API_URL) throw new Error("Missing NEXT_PUBLIC_API_URL");
 
-export async function PATCH(req: Request, ctx: { params: { id: string } }) {
+type Ctx = { params: Promise<{ id: string }> };
+
+export async function PATCH(req: Request, ctx: Ctx) {
+  const { id } = await ctx.params;
   const body = await req.text();
 
-  const res = await fetch(`${API_URL}/subscriptions/${ctx.params.id}`, {
+  const res = await fetch(`${API_URL}/subscriptions/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      Cookie: cookies().toString(),
+      Cookie: (await cookies()).toString(),
     },
     body,
+    cache: "no-store",
   });
 
   return new Response(await res.text(), {
@@ -21,10 +25,15 @@ export async function PATCH(req: Request, ctx: { params: { id: string } }) {
   });
 }
 
-export async function DELETE(_: Request, ctx: { params: { id: string } }) {
-  const res = await fetch(`${API_URL}/subscriptions/${ctx.params.id}`, {
+export async function DELETE(_req: Request, ctx: Ctx) {
+  const { id } = await ctx.params;
+
+  const res = await fetch(`${API_URL}/subscriptions/${id}`, {
     method: "DELETE",
-    headers: { Cookie: cookies().toString() },
+    headers: {
+      Cookie: (await cookies()).toString(),
+    },
+    cache: "no-store",
   });
 
   return new Response(await res.text(), {

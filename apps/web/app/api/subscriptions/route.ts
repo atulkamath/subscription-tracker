@@ -5,7 +5,7 @@ if (!API_URL) throw new Error("Missing NEXT_PUBLIC_API_URL");
 
 export async function GET() {
   const res = await fetch(`${API_URL}/subscriptions`, {
-    headers: { Cookie: cookies().toString() },
+    headers: { Cookie: (await cookies()).toString() },
     cache: "no-store",
   });
 
