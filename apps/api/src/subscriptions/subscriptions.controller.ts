@@ -20,6 +20,15 @@ import { UpdateSubscriptionDto } from './dto/update-subscription.dto';
 export class SubscriptionsController {
   constructor(private readonly subscriptionsService: SubscriptionsService) {}
 
+  @Get('total')
+  getTotalCost(@Req() req: Request) {
+    const uid = req.cookies.uid as string;
+    if (!uid) {
+      throw new BadRequestException('uid cookie required');
+    }
+    return this.subscriptionsService.getTotalCost(uid);
+  }
+
   @Get('calendar')
   async getCalendarExport(
     @Req() req: Request,

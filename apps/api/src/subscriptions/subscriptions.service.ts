@@ -43,6 +43,19 @@ export class SubscriptionsService {
     });
   }
 
+  async getTotalCost(userId: string) {
+    const subscriptions = await this.prisma.subscription.findMany({
+      where: { userId },
+    });
+
+    const total = subscriptions.reduce((sum, sub) => sum + sub.price, 0);
+
+    return {
+      total,
+      count: subscriptions.length,
+    };
+  }
+
   async getCalendarExport(
     userId: string,
     remindDays: number,
