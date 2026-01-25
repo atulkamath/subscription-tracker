@@ -1,26 +1,34 @@
 'use client';
 
-import { useState } from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { useCurrency } from '@/contexts/currency-context';
 
 export function Header() {
-  const [currency, setCurrency] = useState('AED');
+  const { currency, setCurrency } = useCurrency();
 
   return (
     <header className="border-b">
-      <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
         <h1 className="text-xl md:text-2xl font-bold">Subscription Tracker</h1>
         
-        <select
-          value={currency}
-          onChange={(e) => setCurrency(e.target.value)}
-          className="h-10 px-4 rounded-lg border bg-background text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary"
-        >
-          <option value="AED">AED</option>
-          <option value="USD">USD ($)</option>
-          <option value="EUR">EUR (€)</option>
-          <option value="GBP">GBP (£)</option>
-          <option value="INR">INR (₹)</option>
-        </select>
+        <Select value={currency} onValueChange={setCurrency}>
+          <SelectTrigger className="w-[120px]">
+            <SelectValue placeholder="Currency" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="AED">AED</SelectItem>
+            <SelectItem value="USD">USD ($)</SelectItem>
+            <SelectItem value="EUR">EUR (€)</SelectItem>
+            <SelectItem value="GBP">GBP (£)</SelectItem>
+            <SelectItem value="INR">INR (₹)</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </header>
   );

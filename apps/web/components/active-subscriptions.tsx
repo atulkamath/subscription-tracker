@@ -8,6 +8,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from '@/components/ui/empty';
+import { CreditCard, Download } from 'lucide-react';
 
 interface ActiveSubscriptionsProps {
   subscriptions: Subscription[];
@@ -15,17 +16,20 @@ interface ActiveSubscriptionsProps {
 
 export function ActiveSubscriptions({ subscriptions }: ActiveSubscriptionsProps) {
   return (
-    <div className="py-8">
-      <h2 className="text-2xl font-bold mb-6">Active subscriptions</h2>
+    <div className="pt-4">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-bold whitespace-nowrap">Active subscriptions</h2>
+        <button className="text-xs px-3 py-1.5 border rounded-lg hover:bg-accent transition-colors flex items-center gap-1.5 whitespace-nowrap shrink-0">
+          <Download className="w-3.5 h-3.5" />
+          Download reminder
+        </button>
+      </div>
       
       {subscriptions.length === 0 ? (
         <Empty className="border-2 border-dashed">
           <EmptyHeader>
             <EmptyMedia variant="icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
-                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-              </svg>
+              <CreditCard className="w-8 h-8" />
             </EmptyMedia>
             <EmptyTitle>No subscriptions yet</EmptyTitle>
             <EmptyDescription>
