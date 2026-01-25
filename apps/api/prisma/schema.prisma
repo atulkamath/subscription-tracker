@@ -19,7 +19,6 @@ model Subscription {
   name             String
   price            Float
   renewalDay       Int
-  remindBeforeDays Int      @default(2)
   iconKey          String   @default("generic")
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt

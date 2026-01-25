@@ -1,4 +1,12 @@
-import { IsIn, IsInt, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import {
+  IsIn,
+  IsInt,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+} from 'class-validator';
 
 export class CreateSubscriptionDto {
   @IsString()
@@ -10,12 +18,8 @@ export class CreateSubscriptionDto {
 
   @IsInt()
   @Min(1)
-  @Max(28)
+  @Max(31)
   renewalDay!: number;
-
-  @IsInt()
-  @IsIn([0, 1, 2, 7])
-  remindBeforeDays!: number;
 
   @IsOptional()
   @IsString()
