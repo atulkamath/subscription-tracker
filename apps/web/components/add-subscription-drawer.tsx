@@ -35,6 +35,7 @@ import type { LucideIcon } from "lucide-react";
 import { useCurrency } from "@/contexts/currency-context";
 import { format } from "date-fns";
 import type { Subscription } from "@/lib/types";
+import useIsMobile from "@/utils/useIsMobile";
 
 const CATEGORIES: Array<{ value: string; label: string; icon: LucideIcon }> = [
   { value: "entertainment", label: "Entertainment", icon: Film },
@@ -68,6 +69,7 @@ export function AddSubscriptionDrawer({
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (open) {
@@ -166,7 +168,11 @@ export function AddSubscriptionDrawer({
   };
 
   return (
-    <Drawer open={open} onOpenChange={setOpen} direction="right">
+    <Drawer
+      open={open}
+      onOpenChange={setOpen}
+      direction={isMobile ? "bottom" : "right"}
+    >
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent className="h-screen top-0 right-0 left-auto mt-0 w-[500px] rounded-none">
         <DrawerHeader>
