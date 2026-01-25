@@ -125,12 +125,11 @@ export function AddSubscriptionDrawer({
 
     try {
       const url = isEditMode
-        ? `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"}/subscriptions/${subscription.id}`
-        : `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"}/subscriptions`;
+        ? `/api/subscriptions/${subscription!.id}`
+        : `/api/subscriptions`;
 
       const response = await fetch(url, {
         method: isEditMode ? "PATCH" : "POST",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
