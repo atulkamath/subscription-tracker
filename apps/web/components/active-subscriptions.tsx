@@ -2,13 +2,13 @@ import type { Subscription } from '@/lib/types';
 import { SubscriptionCard } from './subscription-card';
 import {
   Empty,
-  EmptyContent,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
 } from '@/components/ui/empty';
-import { CreditCard, Download } from 'lucide-react';
+import { CreditCard } from 'lucide-react';
+import { DownloadReminderButton } from './download-reminder-button';
 
 interface ActiveSubscriptionsProps {
   subscriptions: Subscription[];
@@ -18,11 +18,10 @@ export function ActiveSubscriptions({ subscriptions }: ActiveSubscriptionsProps)
   return (
     <div className="pt-4">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold whitespace-nowrap">Active subscriptions</h2>
-        <button className="text-xs px-3 py-1.5 border rounded-lg hover:bg-accent transition-colors flex items-center gap-1.5 whitespace-nowrap shrink-0">
-          <Download className="w-3.5 h-3.5" />
-          Download reminder
-        </button>
+        <h2 className="text-lg font-bold whitespace-nowrap">
+          Active subscriptions
+        </h2>
+        <DownloadReminderButton />
       </div>
       
       {subscriptions.length === 0 ? (

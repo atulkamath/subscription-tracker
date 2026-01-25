@@ -147,14 +147,17 @@ export function AddSubscriptionDrawer({
       }
 
       toast.success(
-        isEditMode ? "Subscription updated successfully!" : "Subscription added successfully!"
+        isEditMode
+          ? "Subscription updated successfully!"
+          : "Subscription added successfully!",
       );
       setOpen(false);
       router.refresh();
     } catch (err) {
-      const errorMessage = err instanceof Error
-        ? err.message
-        : `Failed to ${isEditMode ? "update" : "create"} subscription`;
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : `Failed to ${isEditMode ? "update" : "create"} subscription`;
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -233,6 +236,7 @@ export function AddSubscriptionDrawer({
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0">
                   <Calendar
+                    disabled={(date) => date < new Date()}
                     mode="single"
                     selected={date}
                     onSelect={(newDate) => {
