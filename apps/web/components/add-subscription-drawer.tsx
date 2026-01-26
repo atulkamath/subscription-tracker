@@ -176,7 +176,7 @@ export function AddSubscriptionDrawer({
       direction={isMobile ? "bottom" : "right"}
     >
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="h-screen top-0 right-0 left-auto mt-0 w-[500px] rounded-none">
+      <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>
             {isEditMode ? "Edit Subscription" : "Add New Subscription"}
