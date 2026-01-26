@@ -114,14 +114,14 @@ export function SubscriptionCard({ subscription }: SubscriptionCardProps) {
 
       {/* Actions */}
       <div className="flex ml-6">
-        <AddSubscriptionDrawer subscription={subscription}>
+        {/* <AddSubscriptionDrawer subscription={subscription}>
           <button
             className="p-2 hover:bg-accent rounded-md transition-colors"
             aria-label="Edit subscription"
           >
             <Pencil className="w-4 h-4" />
           </button>
-        </AddSubscriptionDrawer>
+        </AddSubscriptionDrawer> */}
 
         <AlertDialog>
           <AlertDialogTrigger asChild>

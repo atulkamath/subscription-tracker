@@ -10,7 +10,7 @@ export async function GET(req: Request) {
   const res = await fetch(
     `${API_URL}/subscriptions/calendar?remind=${remind}`,
     {
-      headers: { Cookie: cookies().toString() },
+      headers: { Cookie: (await cookies()).toString() },
       cache: "no-store",
     },
   );
