@@ -13,8 +13,30 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
+import { Subscription } from "@/lib/types";
+import { Button } from "./ui/button";
 
-export function DownloadReminderButton() {
+export function DownloadReminderButton({
+  subscriptions,
+}: {
+  subscriptions: Subscription[];
+}) {
+  const willReminderBePast = (renewalDay: number, daysBefore: number) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const event = new Date(today.getFullYear(), today.getMonth(), renewalDay);
+
+    if (event <= today) {
+      event.setMonth(event.getMonth() + 1);
+    }
+
+    const reminder = new Date(event);
+    reminder.setDate(reminder.getDate() - daysBefore);
+
+    return reminder <= today;
+  };
+
   const handleDownload = async (daysBefore: number) => {
     try {
       const response = await fetch(`/api/calendar?remind=${daysBefore}`);
@@ -33,7 +55,17 @@ export function DownloadReminderButton() {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
 
-      toast.success("Calendar file downloaded successfully!");
+      const adjustedCount = subscriptions.filter((s) =>
+        willReminderBePast(s.renewalDay, daysBefore),
+      ).length;
+
+      if (adjustedCount > 0) {
+        toast.success(
+          `Calendar downloaded. ${adjustedCount} reminder(s) were adjusted because the selected reminder time had already passed.`,
+        );
+      } else {
+        toast.success("Calendar file downloaded successfully!");
+      }
     } catch {
       toast.error("Failed to download calendar file");
     }
@@ -42,10 +74,10 @@ export function DownloadReminderButton() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <button className="text-xs px-3 py-1.5 border rounded-lg hover:bg-accent transition-colors flex items-center gap-1.5 whitespace-nowrap shrink-0">
+        <Button variant={"outline"} disabled={subscriptions.length === 0}>
           <Download className="w-3.5 h-3.5" />
           Download reminder
-        </button>
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

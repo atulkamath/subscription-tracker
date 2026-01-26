@@ -81,13 +81,16 @@ export function AddSubscriptionDrawer({
           iconKey: subscription.iconKey,
         });
         const today = new Date();
-        setDate(
-          new Date(
-            today.getFullYear(),
-            today.getMonth(),
-            subscription.renewalDay,
-          ),
-        );
+        const year = today.getFullYear();
+        const month = today.getMonth();
+
+        // last valid day in this month
+        const lastDay = new Date(year, month + 1, 0).getDate();
+
+        // clamp renewalDay so it never overflows
+        const safeDay = Math.min(subscription.renewalDay, lastDay);
+
+        setDate(new Date(year, month, safeDay));
       } else {
         setFormData({
           name: "",

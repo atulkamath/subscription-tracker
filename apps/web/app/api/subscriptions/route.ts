@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Cookie: cookies().toString(),
+      Cookie: (await cookies()).toString(),
     },
     body,
   });
