@@ -3,6 +3,8 @@
 
 A minimal full-stack app to track monthly subscriptions, calculate total expenses, and export calendar reminders for renewals.
 
+### NOTE: BE will take upto a minute to spool up (using Render's free version for hosting the BE)
+
 ---
 
 ## ✨ Features
